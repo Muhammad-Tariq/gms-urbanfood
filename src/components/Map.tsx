@@ -4,6 +4,7 @@ import { MapLayers } from './map/MapLayers';
 import { MapControls } from './MapControls';
 import { LayerControl } from './map/LayerControl';
 import { BoundaryLayers, type OverlayId } from './map/BoundaryLayers';
+import { PinsLayer } from './map/PinsLayer';
 import { BoundarySelector } from './BoundarySelector';
 import 'leaflet/dist/leaflet.css';
 
@@ -21,6 +22,7 @@ export const Map = () => {
     districts: true,
     tehsils: true,
   });
+  const [pinsVisible, setPinsVisible] = React.useState(true);
 
   const toggle = (id: OverlayId) =>
     setVisible((v) => ({ ...v, [id]: !v[id] }));
@@ -38,9 +40,15 @@ export const Map = () => {
       >
         <MapLayers />
         <BoundaryLayers visible={visible} />
+        {pinsVisible && <PinsLayer />}
         <BoundarySelector />
         <MapControls />
-        <LayerControl visible={visible} onToggle={toggle} />
+        <LayerControl
+          visible={visible}
+          onToggle={toggle}
+          pinsVisible={pinsVisible}
+          onTogglePins={() => setPinsVisible((v) => !v)}
+        />
       </MapContainer>
     </div>
   );

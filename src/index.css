@@ -33,3 +33,9 @@
   font-weight: 600;
   font-size: 12px;
 }
+
+/* Custom divIcon pins need no default leaflet div styling */
+.ufg-pin {
+  background: transparent;
+  border: none;
+}
